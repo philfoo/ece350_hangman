@@ -4,6 +4,7 @@
 ## $r2: will hold the length of the word
 ## $r3: loop counter for each character of word (i)
 ## $r4 is the temporary register where you check it against data
+## $r5: register for holding temp characters after loads
 ## $r30: where the input from keyboard ends up
 
 
@@ -52,10 +53,10 @@ ret
 
 ##-----------------------------------Creating characters section-----------------------------------------------##
 render_character:
-lw $r2, 0($r0)                 #load A
+lw $r5, 0($r0)                 #load A
 nop
 nop
-bne $r2, $r4, check_b          #check if not equal, if so check b
+bne $r5, $r4, check_b          #check if not equal, if so check b
 j write_a                      #write_a if equal
 check_b:
 
