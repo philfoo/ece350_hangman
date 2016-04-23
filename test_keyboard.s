@@ -24,7 +24,7 @@ add $r30, $r0, $r0    #Set input register back to 0
 jal render_character  #Go to render character method, r4 has character
 nop
 nop
-addi $r7, $r7, 12     #increment 50 to the right
+addi $r7, $r7, 12     #increment 12 to the right
 
 
 bne $r1, $r0, loop    #infinite loop
@@ -50,6 +50,8 @@ nop
 bne $r5, $r4, check_b #this letter is not A
 nop
 j write_a
+nop
+nop
 
 check_b:
 lw $r5, 1($r0)       #load B
@@ -58,15 +60,350 @@ nop
 bne $r5, $r4, check_c
 nop
 j write_b
+nop
+nop
 
 check_c:
 lw $r5, 2($r0)        #load C
 nop
 nop
-bne $r5, $r4, exit
+bne $r5, $r4, check_d
 nop
 j write_c
+nop
+nop
 
+
+check_d:
+lw $r5, 3($r0)        #load D
+nop
+nop
+bne $r5, $r4, check_e
+nop
+j write_d
+nop
+nop
+
+check_e:
+lw $r5, 4($r0)        #load E
+nop
+nop
+bne $r5, $r4, check_f
+nop
+j write_e
+nop
+nop
+
+
+check_f:
+lw $r5, 5($r0)        #load F
+nop
+nop
+bne $r5, $r4, check_g
+nop
+j write_f
+nop
+nop
+
+check_g:
+lw $r5, 6($r0)        #load G
+nop
+nop
+bne $r5, $r4, check_h
+nop
+j write_g
+nop
+nop
+
+check_h:
+lw $r5, 7($r0)        #load H
+nop
+nop
+bne $r5, $r4, check_i
+nop
+j write_h
+
+check_i:
+lw $r5, 8($r0)        #load I
+nop
+nop
+bne $r5, $r4, check_j
+nop
+j write_i
+nop
+nop
+
+check_j:
+lw $r5, 9($r0)        #load J
+nop
+nop
+bne $r5, $r4, check_k
+nop
+nop
+j write_j
+nop
+nop
+
+check_k:
+lw $r5, 10($r0)        #load K
+nop
+nop
+bne $r5, $r4, check_l
+nop
+nop
+j write_k
+nop
+nop
+
+check_l:
+lw $r5, 11($r0)        #load L
+nop
+nop
+bne $r5, $r4, check_m
+nop
+j write_l
+nop
+nop
+
+check_m:
+lw $r5, 12($r0)        #load m
+nop
+nop
+bne $r5, $r4, check_n
+nop
+j write_m
+nop
+nop
+
+check_n:
+lw $r5, 13($r0)        #load n
+nop
+nop
+bne $r5, $r4, check_o
+nop
+j write_n
+nop
+nop
+
+check_o:
+lw $r5, 14($r0)        #load o
+nop
+nop
+bne $r5, $r4, check_p
+nop
+j write_o
+nop
+nop
+
+check_p:
+lw $r5, 15($r0)        #load p
+nop
+nop
+bne $r5, $r4, check_q
+nop
+j write_p
+nop
+nop
+
+check_q:
+lw $r5, 16($r0)        #load q
+nop
+nop
+bne $r5, $r4, check_r
+nop
+j write_q
+nop
+nop
+
+check_r:
+lw $r5, 17($r0)        #load r
+nop
+nop
+bne $r5, $r4, check_s
+nop
+j write_r
+nop
+nop
+
+check_s:
+lw $r5, 18($r0)        #load s
+nop
+nop
+bne $r5, $r4, check_t
+nop
+j write_s
+nop
+nop
+
+check_t:
+lw $r5, 19($r0)        #load t
+nop
+nop
+bne $r5, $r4, check_u
+nop
+j write_t
+nop
+nop
+
+check_u:
+lw $r5, 20($r0)        #load u
+nop
+nop
+bne $r5, $r4, check_v
+nop
+j write_u
+nop
+nop
+
+check_v:
+lw $r5, 21($r0)        #load v
+nop
+nop
+bne $r5, $r4, check_w
+nop
+j write_v
+nop
+nop
+
+check_w:
+lw $r5, 22($r0)        #load w
+nop
+nop
+bne $r5, $r4, check_x
+nop
+j write_w
+nop
+nop
+
+check_x:
+lw $r5, 23($r0)        #load x
+nop
+nop
+bne $r5, $r4, check_y
+nop
+j write_x
+nop
+nop
+
+check_y:
+lw $r5, 24($r0)        #load y
+nop
+nop
+bne $r5, $r4, check_z
+nop
+j write_y
+nop
+nop
+
+check_z:
+lw $r5, 25($r0)        #load z
+nop
+nop
+bne $r5, $r4, check_0
+nop
+j write_z
+nop
+nop
+
+check_0:
+lw $r5, 26($r0)        #load 0
+nop
+nop
+bne $r5, $r4, check_1
+nop
+j write_o
+nop
+nop
+
+check_1:
+lw $r5, 27($r0)        #load 1
+nop
+nop
+bne $r5, $r4, check_2
+nop
+j write_1
+nop
+nop
+
+check_2:
+lw $r5, 28($r0)        #load 2
+nop
+nop
+bne $r5, $r4, check_3
+nop
+j write_2
+nop
+nop
+
+check_3:
+lw $r5, 29($r0)        #load 3
+nop
+nop
+bne $r5, $r4, check_4
+nop
+j write_3
+nop
+nop
+
+check_4:
+lw $r5, 30($r0)        #load 4
+nop
+nop
+bne $r5, $r4, check_5
+nop
+j write_4
+nop
+nop
+
+check_5:
+lw $r5, 31($r0)        #load 5
+nop
+nop
+bne $r5, $r4, check_6
+nop
+j write_5
+nop
+nop
+
+check_6:
+lw $r5, 32($r0)        #load 6
+nop
+nop
+bne $r5, $r4, check_7
+nop
+j write_3
+nop
+nop
+
+check_7:
+lw $r5, 33($r0)        #load 7
+nop
+nop
+bne $r5, $r4, check_8
+nop
+j write_3
+nop
+nop
+
+check_8:
+lw $r5, 34($r0)        #load 8
+nop
+nop
+bne $r5, $r4, check_9
+nop
+j write_8
+nop
+nop
+
+check_9:
+lw $r5, 35($r0)        #load 9
+nop
+nop
+bne $r5, $r4, loop
+nop
+j write_9
+nop
+nop
 
 #----------------------------Write character methods---------------------------#
 write_a:
