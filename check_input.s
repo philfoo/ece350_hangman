@@ -11,14 +11,16 @@
 
 .text
 main:
+add $r30, $r0, $r0
 jal wait_for_input
 nop
 nop
 add $r4, $r0, $r30    #move to $r4
 add $r30, $r0, $r0    #set input register back to 0
-
 sw $r4, 0($r0)
 j exit
+nop
+nop
 
 
 #--------------------------Wait for input ---------------------#
@@ -26,6 +28,7 @@ wait_for_input:
 nop
 nop
 bne $r30, $r0, input_ready
+nop
 nop
 j wait_for_input     #loop back and wait if still equal
 

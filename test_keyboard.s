@@ -14,6 +14,7 @@ main:
 addi $r1, $r0, 1
 add $r6, $r0, $r0    #initialize r6 (starting address) to 0 for now
 
+loop:
 jal wait_for_input
 nop
 nop
@@ -22,10 +23,11 @@ add $r4, $r0, $r30    #Move inputted character to register 4
 add $r30, $r0, $r0    #Set input register back to 0
 jal render_character  #Go to render character method, r4 has character
 nop
-addi $r7, $r7, 50     #increment 50 to the right
+nop
+addi $r7, $r7, 12     #increment 50 to the right
 
 
-bne $r1, $r0, main    #infinite loop
+bne $r1, $r0, loop    #infinite loop
 
 #--------------------------Wait for input ---------------------#
 wait_for_input:
@@ -796,6 +798,287 @@ jr $r31
 nop
 nop
 
+write_1:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x0701c($r6)
+sw $r1, 0x0701d($r6)
+sw $r1, 0x0729d($r6)
+sw $r1, 0x0751d($r6)
+sw $r1, 0x0779d($r6)
+sw $r1, 0x07a1d($r6)
+sw $r1, 0x07c9d($r6)
+sw $r1, 0x07f1c($r6)
+sw $r1, 0x07f1d($r6)
+sw $r1, 0x0819b($r6)
+sw $r1, 0x0819c($r6)
+sw $r1, 0x0819d($r6)
+sw $r1, 0x0819e($r6)
+jr $r31
+nop
+nop
+
+write_2:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06d9c($r6)
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x06d9f($r6)
+sw $r1, 0x0701b($r6)
+sw $r1, 0x0701c($r6)
+sw $r1, 0x0701f($r6)
+sw $r1, 0x07020($r6)
+sw $r1, 0x0729a($r6)
+sw $r1, 0x0729b($r6)
+sw $r1, 0x0729f($r6)
+sw $r1, 0x072a0($r6)
+sw $r1, 0x0751e($r6)
+sw $r1, 0x0751f($r6)
+sw $r1, 0x0779d($r6)
+sw $r1, 0x0779e($r6)
+sw $r1, 0x07a1c($r6)
+sw $r1, 0x07a1d($r6)
+sw $r1, 0x07c9b($r6)
+sw $r1, 0x07c9c($r6)
+sw $r1, 0x07f1a($r6)
+sw $r1, 0x07f1b($r6)
+sw $r1, 0x0819a($r6)
+sw $r1, 0x0819b($r6)
+sw $r1, 0x0819c($r6)
+sw $r1, 0x0819d($r6)
+sw $r1, 0x0819e($r6)
+sw $r1, 0x0819f($r6)
+jr $r31
+nop
+nop
+
+write_3:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06b1b($r6)
+sw $r1, 0x06b1c($r6)
+sw $r1, 0x06b1d($r6)
+sw $r1, 0x06d9a($r6)
+sw $r1, 0x06d9b($r6)
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x0701e($r6)
+sw $r1, 0x0701f($r6)
+sw $r1, 0x0729f($r6)
+sw $r1, 0x0751c($r6)
+sw $r1, 0x0751d($r6)
+sw $r1, 0x0751e($r6)
+sw $r1, 0x0779c($r6)
+sw $r1, 0x0779d($r6)
+sw $r1, 0x0779e($r6)
+sw $r1, 0x0779f($r6)
+sw $r1, 0x07a1f($r6)
+sw $r1, 0x07c9f($r6)
+sw $r1, 0x07f1a($r6)
+sw $r1, 0x07f1b($r6)
+sw $r1, 0x07f1e($r6)
+sw $r1, 0x0819e($r6)
+sw $r1, 0x0819f($r6)
+jr $r31
+nop
+nop
+
+write_4:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06d9a($r6)
+sw $r1, 0x06d9b($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x06d9f($r6)
+sw $r1, 0x0701a($r6)
+sw $r1, 0x0701e($r6)
+sw $r1, 0x0729a($r6)
+sw $r1, 0x0729e($r6)
+sw $r1, 0x0751a($r6)
+sw $r1, 0x0751e($r6)
+sw $r1, 0x0779a($r6)
+sw $r1, 0x0779b($r6)
+sw $r1, 0x0779c($r6)
+sw $r1, 0x0779d($r6)
+sw $r1, 0x0779e($r6)
+sw $r1, 0x07a1e($r6)
+sw $r1, 0x07c9e($r6)
+sw $r1, 0x07f1e($r6)
+sw $r1, 0x0819e($r6)
+sw $r1, 0x0819f($r6)
+jr $r31
+nop
+nop
+
+write_5:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06d9a($r6)
+sw $r1, 0x06d9b($r6)
+sw $r1, 0x06d9c($r6)
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x06d9f($r6)
+sw $r1, 0x0701a($r6)
+sw $r1, 0x0729a($r6)
+sw $r1, 0x0751a($r6)
+sw $r1, 0x0751b($r6)
+sw $r1, 0x0751c($r6)
+sw $r1, 0x0751d($r6)
+sw $r1, 0x0779d($r6)
+sw $r1, 0x0779e($r6)
+sw $r1, 0x07a1e($r6)
+sw $r1, 0x07a1f($r6)
+sw $r1, 0x07c9f($r6)
+sw $r1, 0x07c9a($r6)
+sw $r1, 0x07f1a($r6)
+sw $r1, 0x07f1b($r6)
+sw $r1, 0x07f1d($r6)
+sw $r1, 0x07f1e($r6)
+sw $r1, 0x07f1f($r6)
+sw $r1, 0x0819b($r6)
+sw $r1, 0x0819c($r6)
+sw $r1, 0x0819d($r6)
+sw $r1, 0x0819e($r6)
+jr $r31
+nop
+nop
+
+write_6: 
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06b1e($r6)
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x0701c($r6)
+sw $r1, 0x0701d($r6)
+sw $r1, 0x0729b($r6)
+sw $r1, 0x0729c($r6)
+sw $r1, 0x0751a($r6)
+sw $r1, 0x0751b($r6)
+sw $r1, 0x0779a($r6)
+sw $r1, 0x0779b($r6)
+sw $r1, 0x0779c($r6)
+sw $r1, 0x0779d($r6)
+sw $r1, 0x0779e($r6)
+sw $r1, 0x07a1a($r6)
+sw $r1, 0x07a1e($r6)
+sw $r1, 0x07a1f($r6)
+sw $r1, 0x07c9a($r6)
+sw $r1, 0x07c9f($r6)
+sw $r1, 0x07f1a($r6)
+sw $r1, 0x07f1b($r6)
+sw $r1, 0x07f1e($r6)
+sw $r1, 0x07f1f($r6)
+sw $r1, 0x0819b($r6)
+sw $r1, 0x0819c($r6)
+sw $r1, 0x0819d($r6)
+sw $r1, 0x0819e($r6)
+jr $r31
+nop
+nop
+
+write_7:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06d9a($r6)
+sw $r1, 0x06d9b($r6)
+sw $r1, 0x06d9c($r6)
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x06d9f($r6)
+sw $r1, 0x0701f($r6)
+sw $r1, 0x0729e($r6)
+sw $r1, 0x0729f($r6)
+sw $r1, 0x0751d($r6)
+sw $r1, 0x0751e($r6)
+sw $r1, 0x0779c($r6)
+sw $r1, 0x0779d($r6)
+sw $r1, 0x07a1b($r6)
+sw $r1, 0x07a1c($r6)
+sw $r1, 0x07c9a($r6)
+sw $r1, 0x07cdb($r6)
+sw $r1, 0x07f1a($r6)
+sw $r1, 0x0819a($r6)
+jr $r31
+nop
+nop
+
+write_8:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06d9b($r6)
+sw $r1, 0x06d9c($r6)
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x0701a($r6)
+sw $r1, 0x0701f($r6)
+sw $r1, 0x0729a($r6)
+sw $r1, 0x0729b($r6)
+sw $r1, 0x0729e($r6)
+sw $r1, 0x0729f($r6)
+sw $r1, 0x0751b($r6)
+sw $r1, 0x0751c($r6)
+sw $r1, 0x0751d($r6)
+sw $r1, 0x0751e($r6)
+sw $r1, 0x0779a($r6)
+sw $r1, 0x0779b($r6)
+sw $r1, 0x0779e($r6)
+sw $r1, 0x0779f($r6)
+sw $r1, 0x07a1a($r6)
+sw $r1, 0x07a1f($r6)
+sw $r1, 0x07c9a($r6)
+sw $r1, 0x07c9f($r6)
+sw $r1, 0x07f1a($r6)
+sw $r1, 0x07f1b($r6)
+sw $r1, 0x07f1e($r6)
+sw $r1, 0x07f1f($r6)
+sw $r1, 0x0819b($r6)
+sw $r1, 0x0819c($r6)
+sw $r1, 0x0819d($r6)
+sw $r1, 0x0819e($r6)
+jr $r31
+nop
+nop
+
+write_9:
+add $r6, $r7, $r6
+nop
+nop
+sw $r1, 0x06d9b($r6)
+sw $r1, 0x06d9c($r6)
+sw $r1, 0x06d9d($r6)
+sw $r1, 0x06d9e($r6)
+sw $r1, 0x06d9f($r6)
+sw $r1, 0x0701a($r6)
+sw $r1, 0x0701f($r6)
+sw $r1, 0x0729a($r6)
+sw $r1, 0x0729b($r6)
+sw $r1, 0x0729e($r6)
+sw $r1, 0x0729f($r6)
+sw $r1, 0x0751b($r6)
+sw $r1, 0x0751c($r6)
+sw $r1, 0x0751d($r6)
+sw $r1, 0x0751e($r6)
+sw $r1, 0x0751f($r6)
+sw $r1, 0x0779f($r6)
+sw $r1, 0x07a1f($r6)
+sw $r1, 0x07c9f($r6)
+sw $r1, 0x07f1f($r6)
+sw $r1, 0x0819f($r6)
+jr $r31
+nop
+nop
 
 
 exit:
