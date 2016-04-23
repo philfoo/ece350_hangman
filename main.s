@@ -24,7 +24,7 @@ get_characters:
 jal wait_for_input             ##Wait for each character
 
 ##TODO: store character from register 30 somewhere
-add $r4, $r0, $r30             ##Move character to register four
+add $r4, $r0, $r30             ##Move inputted character to register four
 add $r30, $r0, $r0             ##Set input register back to 0
 jal render_character           ##Go to render character method
 
@@ -43,17 +43,21 @@ wait_for_input:
 addi $r0, $r0, $r0             ##random commands to stall, prob not necessary
 addi $r0, $r0, $r0
 bne $r0, $r30, input_ready     ##Keyboard input will make $r30 != 0. jumps back if not branch
+nop
 jump wait_for_input            ##loop back, waiting
 
 input_ready:
-addi $r30, $r0, 0              ##set $r30 back to 0 for the next time wait_for_input gets called
-jr $r31                        ##Go back to whatever called this
+ret                       
 
 
 ##-----------------------------------Creating characters section-----------------------------------------------##
 render character:
 lw $r2, 0($r0)                 #load A
 nop
+nop
+bne $r2, $r4, check_b          #check if not equal, if so check b
+j write_a                      #write_a if equal
+check_b:
 
 
 
