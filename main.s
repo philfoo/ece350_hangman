@@ -17,7 +17,7 @@ addi $r1, $r0, 1               ##Initialize $r1 = 1 at the very beginning
 
 jal wait_for_input             ##Go to wait_for_input method, waiting for player 1's word length
 add $r2, $r30, $r0             ##Store length of word into $r2
-
+add $r30, $r0, $r0             ##Set $r30 back to 
 
 ##Loop through to get characters
 get_characters:
@@ -51,7 +51,7 @@ ret
 
 
 ##-----------------------------------Creating characters section-----------------------------------------------##
-render character:
+render_character:
 lw $r2, 0($r0)                 #load A
 nop
 nop
