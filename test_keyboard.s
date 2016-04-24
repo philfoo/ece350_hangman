@@ -13,6 +13,7 @@
 main:
 addi $r1, $r0, 1
 add $r6, $r0, $r0    #initialize r6 (starting address) to 0 for now
+addi $r6, $r0, 0
 
 loop:
 jal wait_for_input
@@ -1420,8 +1421,41 @@ nop
 
 exit:
 .data
-
-
+a: .word 0x0000000c
+b: .word 0x00000032
+c: .word 0x00000021
+d: .word 0x00000023
+e: .word 0x00000024
+f: .word 0x0000002b
+g: .word 0x00000034
+h: .word 0x00000033
+i: .word 0x00000043
+j: .word 0x0000003b
+k: .word 0x00000042
+l: .word 0x0000004b
+m: .word 0x0000003a
+n: .word 0x00000031
+o: .word 0x00000044
+p: .word 0x0000004d
+q: .word 0x00000015
+r: .word 0x0000002d
+s: .word 0x0000001b
+t: .word 0x0000002c
+u: .word 0x0000003c
+v: .word 0x0000002a
+x: .word 0x00000022
+y: .word 0x00000035
+z: .word 0x0000001a
+zero: .word 0x00000045
+one: .word 0x00000016
+two: .word 0x0000001e
+three: .word 0x00000026
+four: .word 0x00000025
+five: .word 0x0000002e
+six: .word 0x00000036
+seven: .word 0x0000003d
+eight: .word 0x0000003e
+nine: .word 0x00000046
 
 
 

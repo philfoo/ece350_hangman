@@ -12,13 +12,18 @@
 .text
 main:
 add $r30, $r0, $r0
+addi $r1, $r0, 1
+loop:
 jal wait_for_input
 nop
 nop
 add $r4, $r0, $r30    #move to $r4
 add $r30, $r0, $r0    #set input register back to 0
-sw $r4, 0($r0)
-j exit
+sw $r4, 0($r7)
+nop
+nop
+addi $r7, $r7, 1      #increment memory address by 1
+blt $r0, $r1, loop
 nop
 nop
 
