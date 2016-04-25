@@ -10,7 +10,9 @@
 ## $r8: register for debouncing keyboard
 ## $r9: register where you load bignum
 ## $r10: location where you end up writing letters
-## $r30: where the input from keyboard ends up
+## $r11: location where you store length of word
+## $r12: location where you store characters in word
+## $r13: 4800
 
 .text
 main:
@@ -24,41 +26,301 @@ add $r6, $r0, $r0    #initialize r6 (starting address) to 0 for now
 nop
 nop
 nop
+addi $r13, $r13, 7200
+nop
+nop
+nop
 nop
 lw $r9, 36($r0)     #load bignum into $r9
 nop
 nop
 nop
 
+addi $r7, $r7, 144
+##--------------------------Render initialization text on screen----"Enter length of word"-----------------##
+
+nop
+nop
+jal write_e
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_n
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_t
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_e
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_r
+nop
+nop
+nop
+addi $r7, $r7, 24 #Space
+jal write_w
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_o
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_r
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_d
+nop
+nop
+nop
+addi $r7, $r7, 24
+jal write_l
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_e
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_n
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_g
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_t
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_h
+nop
+nop
+nop
+nop
 
 
-loop:
-jal wait_for_input
+########################################################################################################################
+#############------------------------------Get length of word----------------------------------------------#############
+########################################################################################################################
+addi $r7, $r0, 144
 nop
 nop
 nop
 nop
 nop
-jal render_character  #Go to render character method, r4 has character
+addi $r7, $r7, 6400
+nop
+nop
+nop
+jal wait_for_input    #Get length of word
 nop
 nop
 nop
 nop
-nop
-addi $r7, $r7, 12     #increment 12 to the right
-nop
+jal render_character  #Render length of word - have to reset $r7 because it was rendering sentence above
 nop
 nop
 nop
+#-----------Convert hex value to decimal ---------------------#
+
+check_1a:
+lw $r5, 27($r0)        #load 1
 nop
-bne $r2, $r0, loop    #infinite loop because 1 < 0 is false
 nop
+bne $r5, $r4, check_2a
+nop
+nop
+nop
+addi $r11, $r0, 1
+nop
+nop
+j store_length
+nop
+nop
+nop
+
+check_2a:
+lw $r5, 28($r0)        #load 2
+nop
+nop
+nop
+bne $r5, $r4, check_3a
+nop
+nop
+addi $r11, $r0, 2
+nop
+nop
+j store_length
+nop
+nop
+nop
+
+check_3a:
+lw $r5, 29($r0)        #load 3
+nop
+nop
+bne $r5, $r4, check_4a
+nop
+addi $r11, $r0, 3
+nop
+nop
+j store_length
+nop
+nop
+
+check_4a:
+lw $r5, 30($r0)        #load 4
+nop
+nop
+bne $r5, $r4, check_5a
+nop
+nop
+addi $r11, $r0, 4
+nop
+nop
+j store_length
+nop
+nop
+
+check_5a:
+nop
+nop
+nop
+lw $r5, 31($r0)        #load 5
+nop
+nop
+bne $r5, $r4, check_6a
+nop
+addi $r11, $r0, 5
+nop
+nop
+j store_length
+nop
+nop
+
+check_6a:
+lw $r5, 32($r0)        #load 6
+nop
+nop
+bne $r5, $r4, check_7a
+nop
+addi $r11, $r0, 6
+nop
+nop
+j store_length
+nop
+nop
+
+check_7a:
+lw $r5, 33($r0)        #load 7
+nop
+nop
+bne $r5, $r4, check_8a
+nop
+addi $r11, $r0, 7
+nop
+nop
+j store_length
+nop
+nop
+
+check_8a:
+lw $r5, 34($r0)        #load 8
+nop
+nop
+bne $r5, $r4, check_9a
+nop
+addi $r11, $r0, 8
+nop
+nop
+j store_length
+nop
+nop
+
+check_9a:
+lw $r5, 35($r0)        #load 9
+nop
+nop
+bne $r5, $r4, store_length
+nop
+addi $r11, $r0, 9
+nop
+nop
+
+
+#-----------------------------------------STORING LENGTH OF WORD----------------------------------#
+store_length:
+nop
+nop
+sw $r11, 100($r12)     #Store length of word at 100 in DMEM
 nop
 nop
 nop
 nop
 
-#--------------------------Wait for input ---------------------#
+#Change position of $r7 again!!
+
+##--------------------------------------Render "Enter letters"----------------------------------##
+addi $r7, $r7, 6400
+nop
+nop
+loop_player1:
+jal wait_for_input      #wait for each letter
+nop
+nop
+nop
+jal render_character
+nop
+nop
+nop
+addi $r12, $r12, 1      #increment where you're storing in memory
+nop
+nop
+nop
+sw $r4, 100($r12)       #store it there
+addi $r3, $r3, 1        #increment counter
+nop
+nop
+nop
+nop
+addi $r7, $r7, 12       #increment offset
+nop
+nop
+blt $r3, $r11, loop_player1
+nop
+nop
+nop
+
+################################################################################################
+#------------------------------------------PLAYER 1 IS DONE!!1--------------------------------##
+################################################################################################
+jal clear                #erase word from screen
+nop
+nop
+nop
+j exit
+
+
+#----------------------------------------Wait for input helper method---------------------#
 wait_for_input:
 add $r8, $r0, $r0    #set debounce register to 0 repetitively
 nop
@@ -605,7 +867,7 @@ check_9:
 lw $r5, 35($r0)        #load 9
 nop
 nop
-bne $r5, $r4, loop
+bne $r5, $r4, exit
 nop
 j write_9
 nop
@@ -1619,12 +1881,68 @@ sw $r2, 0x07a1f($r10)
 sw $r2, 0x07c9f($r10)
 sw $r2, 0x07f1f($r10)
 sw $r2, 0x0819f($r10)
+nop
+nop
+nop
+nop
+nop
 jr $r31
 nop
 nop
 
 
+#--------------------------------CLEAR FUNCTION ----------------------------#
+clear:
+nop
+nop
+add $r7, $r0, $r0       #set $r7 back to 0
+nop
+nop
+addi $r7, $r7, 27416    #hex code offset
+nop
+nop
+nop
+addi $r7, $r7, 12944     #location where you will start clearing
+addi $r3, $r0, 0        #INITIALIZE COUNTER TO 0
+nop
+addi $r2, $r0, 0        #Set color to black
+
+clear_loop:
+add $r10, $r7, $r6      #get address where you'll erase
+nop
+nop
+sw $r2, 0($r10)         #COLOR IN BLACK
+nop
+nop
+addi $r3, $r3, 1
+nop
+nop
+addi $r7, $r7, 1      
+nop
+blt $r3, $r13, clear_loop
+nop
+nop
+jr $r31
+nop
+nop
+
+
+#------------------------------EXIT FUNCTION--------------------------------#
 exit:
+addi $r7, $r7, 10
+nop
+nop
+jal write_9
+nop
+nop
+nop
+halt
+nop
+nop
+jal write_9
+nop
+nop
+
 .data
 a: .word 0x0000001C
 b: .word 0x00000032
@@ -1663,12 +1981,3 @@ seven: .word 0x0000003D
 eight: .word 0x0000003E
 nine: .word 0x00000046
 bignum: .word 0x00400031
-
-
-
-
-
-
-
-
-
