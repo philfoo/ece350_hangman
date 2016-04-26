@@ -13,8 +13,9 @@
 ## $r11: location where you store length of word
 ## $r12: location where you store characters in word
 ## $r13: 4800
-## $r14: NUM GUESSES LEFT
+## $r14: 6
 ## $r15: flag register
+## $r16: number of current wrong guesses
 
 .text
 main:
@@ -22,7 +23,7 @@ nop
 nop
 addi $r2, $r0, 1     #initialize $r2 to 1
 nop
-addi $r14, $r0, 6
+addi $r14, $r0, 6    #number of guesses you have
 nop
 nop
 nop
@@ -317,35 +318,102 @@ nop
 ################################################################################################
 #------------------------------------------PLAYER 2 STARTS!!----------------------------------##
 ################################################################################################
-jal clear                #erase word from screen
+jal clear              #erase word from screen
 nop
-nop
+nop																							#Add bars here
 nop
 addi $r2, $r0, 1
+nop
+
+
+##--------------------------------------Draw lines-------------------------------------------#
+addi $r7, $r0, 21982     #location a little below where words start rendering
+nop
+nop
+nop
+addi $r7, $r7, 27416
+nop
+nop
+nop
+addi $r7, $r7, 6400
+nop
+nop
+nop
+addi $r7, $r7, 24
+nop
+nop
+addi $r7, $r7, 27416
+nop
+nop
+nop
+addi $r3, $r0, 0
+nop
+nop
+nop
+jal generate_lines
+nop
+nop
 
 
 #---------------------------------------Player 2 Loop----------------------------------------#
 player2_loop:
 jal wait_for_input
+nop
+nop
 
 #loop_return:
-addi $r7, $r0, 19344    #init $r7 to proper location again
+addi $r7, $r0, 19422    #init $r7 to proper location again
+nop
+nop
+nop
+addi $r7, $r7, 24
+nop
+nop
+nop
 addi $r7, $r7, 27416
 addi $r3, $r0, 0        #init loop counter
 addi $r12, $r0, 101
 
 j confirm_guess
+nop
+nop
 
 return_place:
-bne $r15, $r0, flag_set
-j flag_not_set
+nop
+nop
+bne $r15, $r0, right_guess
+nop
+nop
+nop
+j wrong_guess
+nop
+nop
+nop
 
-flag_set:
-sub $r14, $r14, $r2
+right_guess:
+nop
+nop
+j end_of_loop
 
-flag_not_set:
-addi $r15, $r0, 0       #resetting flag to 0
-bne $r0, $r14, player2_loop
+wrong_guess:
+nop
+nop
+addi $r16, $r16, 1     #subtract 1 from guesses left
+nop
+nop
+nop
+
+end_of_loop:
+nop
+nop
+addi $r15, $r0, 0      #set flag back to 0
+nop
+nop
+nop
+blt $r16, $r14, player2_loop
+nop
+nop
+nop
 
 j exit
 
@@ -353,15 +421,33 @@ j exit
 #---------------------------------------Confirm Loop----------------------------------------#
 confirm_guess:
 lw $r5, 0($r12)
+nop
+nop
+nop
 bne $r4, $r5, confirm_guess_2
+nop
+nop
 jal render_character          #render character
+nop
+nop
 addi $r15, $r0, 1             #set flag
+nop
+nop
 confirm_guess_2:
 addi $r7, $r7, 12
 addi $r3, $r3, 1              #increment counter
+nop
 addi $r12, $r12, 1            #increment memory address
+nop
+nop
+nop
 bne $r3, $r11, confirm_guess
+nop
+nop
 j return_place
+nop
+nop
+nop
 
 
 #----------------------------------------Wait for input helper method---------------------#
@@ -1966,7 +2052,51 @@ nop
 blt $r3, $r13, clear_loop
 nop
 nop
+addi $r2, $r0, 1
+nop
+nop
 jr $r31
+nop
+nop
+nop
+
+#------------------------------Generate lines------------------------------#
+generate_lines:
+addi $r2, $r0, 1
+nop
+nop
+add $r10, $r7, $r6
+nop
+nop
+nop
+nop
+nop
+sw $r2, 0($r10)         #draw ten pixels
+sw $r2, 1($r10)
+sw $r2, 2($r10)
+sw $r2, 3($r10)
+sw $r2, 4($r10)
+sw $r2, 5($r10)
+sw $r2, 6($r10)
+sw $r2, 7($r10)
+sw $r2, 8($r10)
+sw $r2, 9($r10)
+nop
+nop
+addi $r7, $r7, 12       #increment by 22
+nop
+nop
+addi $r3, $r3, 1
+nop
+nop
+nop
+nop
+blt $r3, $r11, generate_lines
+nop
+nop
+nop
+jr $r31                  #return
+nop
 nop
 nop
 
