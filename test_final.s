@@ -1065,21 +1065,20 @@ sw $r2, 0x0779c($r10)
 sw $r2, 0x0779d($r10)
 sw $r2, 0x0779e($r10)
 sw $r2, 0x0779f($r10)
-sw $r2, 0x07a1b($r10)
-sw $r2, 0x07a1f($r10)
+sw $r2, 0x077a0($r10)
 sw $r2, 0x07a20($r10)
-sw $r2, 0x07c9b($r10)
-sw $r2, 0x07c9f($r10)
 sw $r2, 0x07ca0($r10)
-sw $r2, 0x07f1b($r10)
-sw $r2, 0x07f1f($r10)
 sw $r2, 0x07f20($r10)
-sw $r2, 0x0719b($r10)
-sw $r2, 0x0719c($r10)
-sw $r2, 0x0719d($r10)
-sw $r2, 0x0719e($r10)
-sw $r2, 0x0719f($r10)
-sw $r2, 0x071a1($r10)
+sw $r2, 0x0819b($r10)
+sw $r2, 0x0819c($r10)
+sw $r2, 0x0819d($r10)
+sw $r2, 0x0819e($r10)
+sw $r2, 0x0819f($r10)
+sw $r2, 0x081a0($r10)
+sw $r2, 0x07a1b($r10)
+sw $r2, 0x07a1c($r10)
+sw $r2, 0x07c9b($r10)
+sw $r2, 0x07f1b($r10)
 jr $r31
 nop
 nop
@@ -1925,25 +1924,28 @@ write_7:
 add $r10, $r7, $r6
 nop
 nop
-sw $r2, 0x06d9a($r10)
-sw $r2, 0x06d9b($r10)
-sw $r2, 0x06d9c($r10)
-sw $r2, 0x06d9d($r10)
-sw $r2, 0x06d9e($r10)
-sw $r2, 0x06d9f($r10)
+sw $r2, 0x07019($r10)
+sw $r2, 0x0701a($r10)
+sw $r2, 0x0701b($r10)
+sw $r2, 0x0701c($r10)
+sw $r2, 0x0701d($r10)
+sw $r2, 0x0701e($r10)
 sw $r2, 0x0701f($r10)
-sw $r2, 0x0729e($r10)
+sw $r2, 0x07020($r10)
 sw $r2, 0x0729f($r10)
-sw $r2, 0x0751d($r10)
+sw $r2, 0x072a0($r10)
 sw $r2, 0x0751e($r10)
-sw $r2, 0x0779c($r10)
+sw $r2, 0x0751f($r10)
 sw $r2, 0x0779d($r10)
-sw $r2, 0x07a1b($r10)
+sw $r2, 0x0779e($r10)
 sw $r2, 0x07a1c($r10)
-sw $r2, 0x07c9a($r10)
-sw $r2, 0x07cdb($r10)
-sw $r2, 0x07f1a($r10)
-sw $r2, 0x0819a($r10)
+sw $r2, 0x07a1d($r10)
+sw $r2, 0x07c9b($r10)
+sw $r2, 0x07c9c($r10)
+sw $r2, 0x07f1b($r10)
+sw $r2, 0x07f1c($r10)
+sw $r2, 0x0819b($r10)
+sw $r2, 0x0819c($r10)
 jr $r31
 nop
 nop
@@ -2103,17 +2105,108 @@ nop
 
 #------------------------------EXIT FUNCTION--------------------------------#
 exit:
+nop
+nop
 addi $r7, $r7, 10
 nop
 nop
-jal write_9
+nop
+nop
+nop
+addi $r3, $r0, 0
+nop
+nop
+addi $r12, $r0, 101
+nop
+nop
+#----Stuff for location
+addi $r7, $r0, 19422    #init $r7 to proper location again
+nop
+nop
+nop
+addi $r7, $r7, 24
+nop
+nop
+nop
+addi $r7, $r7, 27416
+
+nop
+
+render_rest:
+lw $r4, 0($r12)               #load word into $r4
+nop
+nop
+nop
+jal render_character          #render the word
+nop
+nop
+addi $r12, $r12, 1
+nop
+nop
+addi $r3, $r3, 1
+nop
+nop
+addi $r7, $r7, 12
+nop
+nop
+blt $r3, $r11, render_rest
+nop
+nop
+
+
+render_goodbye:
+nop
+addi $r7, $r0, 19422    #init $r7 to proper location again
+nop
+nop
+nop
+addi $r7, $r7, 24
+nop
+nop
+nop
+addi $r7, $r7, 27416
+nop
+nop
+nop
+addi $r7, $r7, 19200    #move one line down again
+nop
+nop
+nop
+jal write_g
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_o
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_o
+nop
+nop
+addi $r7, $r7, 12
+jal write_d
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_b
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_y
+nop
+nop
+nop
+addi $r7, $r7, 12
+jal write_e
 nop
 nop
 nop
 halt
 nop
-nop
-jal write_9
 nop
 nop
 
