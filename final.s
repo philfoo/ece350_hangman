@@ -16,9 +16,36 @@
 ## $r14: 6
 ## $r15: flag register
 ## $r16: number of current wrong guesses
+## $r17: 1
+## $r18: 2
+## $r19: 3
+## $r20: 4
+## $r21: 5
+## $r22: 6
+## $r23: spare counter
+## $r24: 10, 40, 70, 30
 
 .text
 main:
+nop
+nop
+nop
+addi $r17, $r0, 1    #initialize constants
+nop
+nop
+addi $r18, $r0, 2
+nop
+nop
+addi $r19, $r0, 3
+nop
+nop
+addi $r20, $r0, 4
+nop
+nop
+addi $r21, $r0, 5
+nop
+nop
+addi $r22, $r0, 6
 nop
 nop
 addi $r2, $r0, 1     #initialize $r2 to 1
@@ -121,6 +148,70 @@ nop
 nop
 nop
 nop
+
+########################################################################################################################
+#############------------------------------Render hangy thing----------------------------------------------#############
+########################################################################################################################
+
+#for rope thing, 0x1AAEB, get to correct location
+addi $r7, $r0, 30000
+nop
+nop
+addi $r7, $r7, 30000
+nop
+nop
+addi $r7, $r7, 30000
+nop
+nop
+addi $r7, $r7, 19291
+nop
+nop
+addi $r23, $r0, 0     #initiate counter register
+addi $r24, $r0, 10
+jal generate_rope
+nop
+
+addi $r7, $r0, 30000
+nop
+nop
+addi $r7, $r7, 30000
+nop
+nop
+addi $r7, $r7, 30000
+nop
+nop
+addi $r7, $r7, 19291
+nop
+addi $r23, $r0, 0      #reset counter register
+addi $r4, $r0, 40
+nop
+jal generate_hor
+nop
+nop
+#for long stick, 0x1AB13
+
+addi $r7, $r0, 30000
+nop
+nop
+addi $r7, $r7, 30000
+nop
+nop
+addi $r7, $r7, 30000
+nop
+nop
+addi $r7, $r7, 19331
+addi $r23, $r0, 0      #reset counter register
+addi $r24, $r0, 70
+nop
+jal generate_vert
+nop
+nop
+
+
+jal generate_bottom
+nop
+nop
+#where you start drawing o: 0x1c3e6
 
 
 ########################################################################################################################
@@ -398,8 +489,51 @@ j end_of_loop
 wrong_guess:
 nop
 nop
-addi $r16, $r16, 1     #subtract 1 from guesses left
+addi $r16, $r16, 1     #add 1 to wrong guesses
 nop
+nop
+nop
+
+check_head:
+bne $r16, $r17, check_body          #r17 = 1
+nop
+jal generate_head
+nop
+nop
+
+check_body:
+bne $r16, $r18, check_rightarm      #r18 = 2
+nop
+nop
+jal generate_body
+nop
+
+check_rightarm:
+bne $r16, $r19, check_leftarm       #r19 = 3
+nop
+nop
+jal generate_rightarm
+nop
+
+check_leftarm:
+bne $r16, $r20, check_rightleg      #r20 = 4 wrong
+nop
+nop
+jal generate_leftarm
+
+check_rightleg:                     #r21 = 5
+bne $r16, $r21, check_leftleg
+nop
+nop
+jal generate_rightleg
+nop
+nop
+
+check_leftleg:
+bne $r16, $r22, end_of_loop         #r22 = 6
+nop
+nop
+jal generate_leftleg
 nop
 nop
 
@@ -2059,6 +2193,386 @@ nop
 nop
 jr $r31
 nop
+nop
+nop
+
+
+#--------------------------------Generate body parts------------------------#
+generate_rope:
+nop
+addi $r2, $r0, 1
+nop
+nop
+sw $r2, 0($r7)
+addi $r7, $r7, 640      #go one pixel down
+addi $r23, $r23, 1      #increment counter
+blt $r23, $r24, generate_rope    #loop 10 times
+nop
+jr $r31
+nop
+nop
+
+generate_hor:
+nop
+addi $r2, $r0, 1
+nop
+nop
+nop
+sw $r2, 0($r7)
+nop
+nop
+addi $r7, $r7, 1
+nop
+addi $r23, $r23, 1
+nop
+nop
+blt $r23, $r24, generate_hor     #loop 40 times now
+nop
+nop
+jr $r31
+nop
+
+generate_vert:
+nop
+addi $r2, $r0, 1
+nop
+nop
+sw $r2, 0($r7)
+nop
+addi $r7, $r7, 640
+nop
+nop
+addi $r23, $r23, 1
+nop
+nop
+blt $r23, $r24, generate_vert      #loop 70 times
+nop
+nop
+addi $r23, $r0, 0           #reset counter plz thanks
+nop
+nop
+jr $r31
+nop
+nop
+
+
+generate_head:
+nop
+nop
+addi $r2, $r0, 1
+nop
+addi $r10, $r0, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+addi $r10, $r10, 28270
+nop
+nop
+sw $r2, 0x06d9a($r10)
+sw $r2, 0x06d9b($r10)
+sw $r2, 0x06d9c($r10)
+sw $r2, 0x06d9d($r10)
+sw $r2, 0x06d9e($r10)
+sw $r2, 0x06d9f($r10)
+sw $r2, 0x07019($r10)
+sw $r2, 0x0701a($r10)
+sw $r2, 0x0701b($r10)
+sw $r2, 0x0701e($r10)
+sw $r2, 0x0701f($r10)
+sw $r2, 0x07020($r10)
+sw $r2, 0x07299($r10)
+sw $r2, 0x072a0($r10)
+sw $r2, 0x07518($r10)
+sw $r2, 0x07519($r10)
+sw $r2, 0x07520($r10)
+sw $r2, 0x07521($r10)
+sw $r2, 0x07798($r10)
+sw $r2, 0x07799($r10)
+sw $r2, 0x077a0($r10)
+sw $r2, 0x077a1($r10)
+sw $r2, 0x07a18($r10)
+sw $r2, 0x07a19($r10)
+sw $r2, 0x07a20($r10)
+sw $r2, 0x07a21($r10)
+sw $r2, 0x07c99($r10)
+sw $r2, 0x07ca0($r10)
+sw $r2, 0x07f19($r10)
+sw $r2, 0x07f1a($r10)
+sw $r2, 0x07f1e($r10)
+sw $r2, 0x07f1f($r10)
+sw $r2, 0x0819a($r10)
+sw $r2, 0x0819b($r10)
+sw $r2, 0x0819d($r10)
+sw $r2, 0x0819e($r10)
+sw $r2, 0x0819f($r10)
+nop
+nop
+jr $r31
+nop
+nop
+
+generate_body:
+nop
+addi $r2, $r0, 1
+nop
+addi $r10, $r0, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 2091
+nop
+addi $r24, $r0, 20
+addi $r23, $r0, 0
+nop
+body_loop:
+nop
+sw $r2, 0($r10)
+nop
+addi $r10, $r10, 640
+nop
+addi $r23, $r23, 1
+nop
+nop
+blt $r23, $r24, body_loop
+nop
+nop
+jr $r31
+nop
+nop
+
+generate_rightarm:
+nop
+addi $r2, $r0, 1
+nop
+addi $r10, $r0, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 8491
+nop
+sw $r2, 0($r10)
+sw $r2, 1($r10)
+sw $r2, 2($r10)
+sw $r2, 3($r10)
+sw $r2, 4($r10)
+sw $r2, 5($r10)
+sw $r2, 6($r10)
+sw $r2, 7($r10)
+sw $r2, 8($r10)
+sw $r2, 9($r10)
+nop
+nop
+nop
+nop
+jr $r31
+nop
+nop
+
+generate_leftarm:
+nop
+addi $r2, $r0, 1
+nop
+addi $r10, $r0, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 8481
+nop
+sw $r2, 0($r10)
+sw $r2, 1($r10)
+sw $r2, 2($r10)
+sw $r2, 3($r10)
+sw $r2, 4($r10)
+sw $r2, 5($r10)
+sw $r2, 6($r10)
+sw $r2, 7($r10)
+sw $r2, 8($r10)
+sw $r2, 9($r10)
+nop
+nop
+jr $r31
+nop
+nop
+
+generate_rightleg:
+nop
+nop
+addi $r2, $r0, 1
+nop
+addi $r10, $r0, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 14891
+nop
+nop
+nop
+sw $r2, 0($r10)
+sw $r2, 1($r10)
+sw $r2, 2($r10)
+sw $r2, 3($r10)
+sw $r2, 4($r10)
+sw $r2, 5($r10)
+sw $r2, 6($r10)
+sw $r2, 7($r10)
+sw $r2, 8($r10)
+sw $r2, 9($r10)
+nop
+nop
+nop
+jr $r31
+nop
+nop
+
+generate_leftleg:
+nop
+nop
+nop
+nop
+addi $r2, $r0, 1
+nop
+addi $r10, $r0, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 14881
+nop
+sw $r2, 0($r10)
+sw $r2, 1($r10)
+sw $r2, 2($r10)
+sw $r2, 3($r10)
+sw $r2, 4($r10)
+sw $r2, 5($r10)
+sw $r2, 6($r10)
+sw $r2, 7($r10)
+sw $r2, 8($r10)
+sw $r2, 9($r10)
+nop
+nop
+jr $r31
+nop
+nop
+
+generate_bottom:
+nop
+nop
+nop
+addi $r2, $r0, 1
+nop
+addi $r10, $r0, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 30000
+nop
+nop
+addi $r10, $r10, 4111
+nop
+nop
+sw $r2, 0($r10)
+sw $r2, 1($r10)
+sw $r2, 2($r10)
+sw $r2, 3($r10)
+sw $r2, 4($r10)
+sw $r2, 5($r10)
+sw $r2, 6($r10)
+sw $r2, 7($r10)
+sw $r2, 8($r10)
+sw $r2, 9($r10)
+sw $r2, 10($r10)
+sw $r2, 11($r10)
+sw $r2, 12($r10)
+sw $r2, 13($r10)
+sw $r2, 14($r10)
+sw $r2, 15($r10)
+sw $r2, 16($r10)
+sw $r2, 17($r10)
+sw $r2, 18($r10)
+sw $r2, 19($r10)
+sw $r2, 20($r10)
+sw $r2, 21($r10)
+sw $r2, 22($r10)
+sw $r2, 23($r10)
+sw $r2, 24($r10)
+sw $r2, 25($r10)
+sw $r2, 26($r10)
+sw $r2, 27($r10)
+sw $r2, 28($r10)
+sw $r2, 29($r10)
+sw $r2, 20($r10)
+sw $r2, 21($r10)
+sw $r2, 22($r10)
+sw $r2, 23($r10)
+sw $r2, 24($r10)
+sw $r2, 25($r10)
+sw $r2, 26($r10)
+sw $r2, 27($r10)
+sw $r2, 28($r10)
+sw $r2, 29($r10)
+sw $r2, 30($r10)
+sw $r2, 31($r10)
+sw $r2, 32($r10)
+sw $r2, 33($r10)
+sw $r2, 34($r10)
+sw $r2, 35($r10)
+sw $r2, 36($r10)
+sw $r2, 37($r10)
+sw $r2, 38($r10)
+sw $r2, 39($r10)
+nop
+nop
+nop
+nop
+jr $r31
 nop
 nop
 
